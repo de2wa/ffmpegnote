@@ -1,0 +1,9 @@
+for ((i=9; i<=49; i++)); do 
+z=$((i+10 ))
+ffmpeg -y  -i "input.mp4"  -ss 00:00:"$i" -to 00:00:"$z" -vf "format=yuv444p, drawbox=y=ih/PHI:color=blue@0.5:width=iw:height=120, drawtext=fontfile=1.ttf:text='text1':fontcolor=YELLOW:shadowcolor=WHITE:shadowx=2:shadowy=5:fontsize=65:x=(w-tw)/1.6:y=(h/PHI)+th,   drawtext=text='text2':fontfile=1.TTF:x=(w-text_w)/2:y=(h-text_h)/1.1:enable=lt(mod(t\,1.2)\,1):fontcolor=WHITE@1.0:fontsize=35:shadowx=2:shadowy=2,format=yuv420p" -c:v libx264 -c:a copy -movflags +faststart  ts2/vid"$i".mp4 < /dev/null
+
+ffmpeg -y -i ts2/vid"$i".mp4 -c copy -bsf:v h264_mp4toannexb ts2/vid"$i".ts
+
+rm ts2/vid"$i".mp4
+
+done 
