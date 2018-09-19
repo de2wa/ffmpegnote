@@ -5,13 +5,13 @@ ts2=("vid1.ts" "vid1.ts" "vid2.ts" "vid4.ts" "vid3.ts" "vid5.ts" "vid7.ts" "vid6
 xts=("vidx.ts" "vidx1.ts" "vidx2.ts" "vidx3.ts" "vidx4.ts" "vidx5.ts")
 RANDOM=$$$(date +%s)
 
-for ((i=1; i<=$2; i++)); do 
+for ((i=1; i<=$1; i++)); do 
 rm videots.txt
 durasi=$(shuf -i 30-60 -n 1);
 #$(shuf -i 5500-6500 -n 1);$(shuf -i 030-060 -n 1)
 echo $durasi
-echo "file 'ts2/"${ts2[$RANDOM % ${#ts2[@]}]}"'" >>videots.txt
-for ((c=1; c<=$durasi/10; c++)); do echo "file 'ts1/"${ts1[$RANDOM % ${#ts1[@]}]}"'"; done >> videots.txt 
+echo "file 'ts2/vid"$(shuf -i 9-49 -n 1)".ts'" >>videots.txt
+for ((c=1; c<=$durasi/10; c++)); do echo "file 'ts1/"${ts1[$RANDOM % ${#ts1[@]}]}".ts'"; done >> videots.txt 
 echo "file 'tsx/"${xts[$RANDOM % ${#xts[@]}]}"'" >>videots.txt
 
 ffmpeg -y -f concat -i videots.txt -c copy -bsf:a aac_adtstoasc vid.mp4 < /dev/null
