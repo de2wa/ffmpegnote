@@ -1,0 +1,1 @@
+ffmpeg -i input.mp4 -c copy -f segment -segment_time 300 -reset_timestamps 1 %03d.mp4
